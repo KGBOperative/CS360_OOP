@@ -1,0 +1,11 @@
+Lab4.class : Lab4.java Lab4Component.class Lab4Dialog.class
+	javac Lab4.java
+
+Lab4Component.class : Lab4Component.java
+	javac Lab4Component.java
+
+Lab4Dialog.class : Lab4Dialog.java
+	javac Lab4Dialog.java
+
+clean :
+	rm -f *.class
