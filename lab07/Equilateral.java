@@ -30,13 +30,29 @@ public final class Equilateral extends Triangle
 
     @Override
     public void paintComponent(Graphics2D g2)  {
-        int h = (int)(side*sqrt(3)/4);
-        
-        int x1[] = {centerX, centerX+side/2, centerX-side/2};
-        int y1[] = {centerY+h/2, centerY-h/2, centerY-h/2};
+        int x1[] = new int[3];
+        int y1[] = new int[3];
+
+        double s = (side * 3) / 2;
+        double a = sqrt(s * pow(s-side, 3));
+        double h = 2 * a / side;
+        double l = sqrt(side * side - h * h);
+
+        double x = (side * side + side * l) / (s * 2);
+        double y = (side * h) / (s * 2);
+
+        double xo = centerX - x;
+        double yo = centerY + y;
+
+        x1[0] = (int)(xo);
+        y1[0] = (int)(yo);
+        x1[1] = (int)(xo + side);
+        y1[1] = (int)(yo);
+        x1[2] = (int)(xo + l);
+        y1[2] = (int)(yo - h);
 
         int x2[] = {centerX, centerX+1, centerX-1};
-        int y2[] = {centerY+1, centerY-1, centerY-1};
+        int y2[] = {centerY-1, centerY+1, centerY+1};
 
         g2.drawPolygon(x1, y1, 3);
         g2.drawPolygon(x2, y2, 3);
@@ -78,7 +94,7 @@ public final class Equilateral extends Triangle
 		Equilateral T2 = new Equilateral (T);
 		T2.write ();
 		System.out.println ();
-		T2.setSide (4.1);
+		T2.setSide (4);
 		T2.write ();
 		System.out.println ();
 	}

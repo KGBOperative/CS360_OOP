@@ -38,7 +38,6 @@ public class Lab07b extends JPanel implements ActionListener, MouseMotionListene
         S.add(new Equilateral(20, 100, 300));
         S.add(new Equilateral(30, 200, 300));
         S.add(new Equilateral(40, 300, 300));
-        /*
         S.add(new Right(20, 40, 100, 350));
         S.add(new Right(30, 30, 200, 350));
         S.add(new Right(40, 20, 300, 350));
@@ -48,7 +47,7 @@ public class Lab07b extends JPanel implements ActionListener, MouseMotionListene
         S.add(new Circle(50, 500, 500));
         S.add(new Square(60, 500, 500));
         S.add(new Equilateral(70, 500, 500));
-        */
+
         repaint();
     }
 

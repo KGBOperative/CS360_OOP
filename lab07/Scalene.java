@@ -3,18 +3,24 @@
 // Contents: the declaration and implementation of the Scalene class
 
 import static java.lang.Math.*;
+import java.awt.*;
 
 public class Scalene extends Triangle {
-    private double side2;
-    private double side3;
+    private int side2;
+    private int side3;
+    private int centerX;
+    private int centerY;
 
     public Scalene() {
     }
 
-    public Scalene(double s1, double s2, double s3) {
+    public Scalene(int s1, int s2, int s3, int x, int y) {
         side = s1;
         side2 = s2;
         side3 = s3;
+
+        centerX = x;
+        centerY = y;
     }
 
     @Override
@@ -24,8 +30,8 @@ public class Scalene extends Triangle {
 
     @Override
     public double area() {
-        double p = perimeter()/2;
-        return sqrt(p * (p - side) * (p - side2) * (p - side3));
+        double s = perimeter()/2;
+        return sqrt(s * (s - side) * (s - side2) * (s - side3));
     }
 
     @Override
@@ -33,19 +39,49 @@ public class Scalene extends Triangle {
         return side + side2 + side3;
     }
 
-    public void setSide2(double s2) {
+    public void setSide2(int s2) {
         side2 = s2;
     }
 
-    public void setSide3(double s3) {
+    public void setSide3(int s3) {
         side3 = s3;
     }
 
-    public double getSide2() {
+    public int getSide2() {
         return side2;
     }
 
-    public double getSide3() {
+    public int getSide3() {
         return side3;
+    }
+
+    @Override
+    public void paintComponent(Graphics2D g2)  {
+        int x1[] = new int[3];
+        int y1[] = new int[3];
+
+        double s = (side + side2 + side3) / 2;
+        double a = sqrt(s * (s - side) * (s - side2) * (s - side3));
+        double h = 2 * a / side;
+        double l = sqrt(side3 * side3 - h * h);
+
+        double x = (side* (side - l) + side2 * side) / (s * 2);
+        double y = (side * h) / (s * 2);
+
+        double xo = centerX - x;
+        double yo = centerY + y;
+
+        x1[0] = (int)(xo);
+        y1[0] = (int)(yo);
+        x1[1] = (int)(xo + side);
+        y1[1] = (int)(yo);
+        x1[2] = (int)(xo + side - l);
+        y1[2] = (int)(yo - h);
+
+        int x2[] = {centerX, centerX+1, centerX-1};
+        int y2[] = {centerY-1, centerY+1, centerY+1};
+
+        g2.drawPolygon(x1, y1, 3);
+        g2.drawPolygon(x2, y2, 3);
     }
 }
