@@ -1,2 +1,14 @@
 # ignore projects
 proj*
+
+# ignore swap files
+.*.swp
+*.swp
+*~
+
+# ignore object and class files
+*.class
+*.o
+
+# ignore binaries
+*.out
