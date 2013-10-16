@@ -1,22 +1,20 @@
-// File: Lab07b.java
+// File: Lab07a.java
 // author: Dr. Watts
 // Contents: This file contains the implementation of a small GUI application in Java
 
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Lab07b extends JPanel implements ActionListener, MouseMotionListener, MouseListener {
+public class Lab07a extends JPanel implements ActionListener, MouseMotionListener, MouseListener {
     private JButton theButton;
     private int hwX, hwY;
     private String helloWorld = null;
     private int red, green, blue;
     private boolean inFrame = true;
-    private ArrayList<Shape> S = new ArrayList<Shape> ();
 
-    public Lab07b() {
-        hwX = 450;
+    public Lab07a() {
+        hwX = 300;
         hwY = 300;
         helloWorld = "Hello World";
         red = green = blue = 30;
@@ -25,29 +23,6 @@ public class Lab07b extends JPanel implements ActionListener, MouseMotionListene
         theButton.addActionListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
-
-        S.add(new Circle(20, 100, 150));
-        S.add(new Circle(30, 200, 150));
-        S.add(new Circle(40, 300, 150));
-        S.add(new Square(20, 100, 200));
-        S.add(new Square(30, 200, 200));
-        S.add(new Square(40, 300, 200));
-        S.add(new Rectangle(20, 40, 100, 250));
-        S.add(new Rectangle(30, 30, 200, 250));
-        S.add(new Rectangle(40, 20, 300, 250));
-        S.add(new Equilateral(20, 100, 300));
-        S.add(new Equilateral(30, 200, 300));
-        S.add(new Equilateral(40, 300, 300));
-        S.add(new Right(20, 40, 100, 350));
-        S.add(new Right(30, 30, 200, 350));
-        S.add(new Right(40, 20, 300, 350));
-        S.add(new Scalene(20, 40, 30, 100, 400));
-        S.add(new Scalene(30, 20, 40, 200, 400));
-        S.add(new Scalene(40, 20, 50, 300, 400));
-        S.add(new Circle(50, 500, 500));
-        S.add(new Square(60, 500, 500));
-        S.add(new Equilateral(70, 500, 500));
-
         repaint();
     }
 
@@ -77,8 +52,6 @@ public class Lab07b extends JPanel implements ActionListener, MouseMotionListene
         int lowerLeftX = hwX - hwWidth/2;
         int lowerLeftY = hwY + hwHeight/2;
         g2.drawString(helloWorld, lowerLeftX, lowerLeftY);
-        for (int i = 0; i < S.size(); i++)
-            S.get(i).paintComponent(g2);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -92,7 +65,7 @@ public class Lab07b extends JPanel implements ActionListener, MouseMotionListene
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lab 6b");
-        Lab07b lab = new Lab07b();
+        Lab07a lab = new Lab07a();
         frame.getContentPane().add(lab);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600,600);
