@@ -22,6 +22,37 @@ public class Rectangle extends Quadrilateral {
     }
 
     @Override
+	public void fromString (String str)
+	{
+		String [] parts = str.split (" ");
+		try
+		{
+			centerX = Integer.parseInt(parts[0]);
+			centerY = Integer.parseInt(parts[1]);
+			side = Integer.parseInt(parts[2]);
+			side2 = Integer.parseInt(parts[3]);
+			color = new Color(Integer.parseInt(parts[4]));
+			setVertices ();
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println ("File input error - invalid integer");;
+		}
+	}
+
+    @Override
+	public String toString ()
+	{
+		String string = new String ();
+		string += centerX + " ";
+		string += centerY + " ";
+		string += side + " ";
+		string += side2 + " ";
+		string += color.getRGB() + " ";
+		return string;
+	}
+
+    @Override
     public String getName() {
         return "Rectangle";
     }

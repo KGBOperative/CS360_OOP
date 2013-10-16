@@ -29,6 +29,35 @@ public final class Equilateral extends Triangle
 	}
 
     @Override
+	public void fromString (String str)
+	{
+		String [] parts = str.split (" ");
+		try
+		{
+			centerX = Integer.parseInt(parts[0]);
+			centerY = Integer.parseInt(parts[1]);
+			side = Integer.parseInt(parts[2]);
+			color = new Color(Integer.parseInt(parts[3]));
+			setVertices ();
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println ("File input error - invalid integer");;
+		}
+	}
+
+    @Override
+	public String toString ()
+	{
+		String string = new String ();
+		string += centerX + " ";
+		string += centerY + " ";
+		string += side + " ";
+		string += color.getRGB() + " ";
+		return string;
+	}
+
+    @Override
     public void paintComponent(Graphics2D g2)  {
         int x1[] = new int[3];
         int y1[] = new int[3];
@@ -83,6 +112,7 @@ public final class Equilateral extends Triangle
 		return "Equilateral";
 	}
 
+    /*
 	public static void main (String [] args)
 	{
 		Equilateral T = new Equilateral ();
@@ -98,4 +128,5 @@ public final class Equilateral extends Triangle
 		T2.write ();
 		System.out.println ();
 	}
+    */
 }
