@@ -3,26 +3,45 @@
 // Contents: This file contains the description and implementation
 // of a class called Triangle. 
 
+import java.awt.*;
+
 public class Triangle extends Shape
 {
+	protected int [] vertexX = new int [3];
+	protected int [] vertexY = new int [3];
+	protected Polygon polygon = new Polygon (vertexX, vertexY, 3);
+
 	Triangle ()
 	{
 	}
 
-	public String sides ()
-	{
-		return "3";
-	}
-	
 	public String getName ()
 	{
 		return "Triangle";
 	}
 
-	public static void main (String [] args)
+	public void paintComponent (Graphics2D g2)
 	{
-		Triangle T = new Triangle ();
-		T.write ();
-		System.out.println ();
+		g2.setPaint (color);
+		g2.fillPolygon (vertexX, vertexY, 3);
+		g2.drawPolygon (vertexX, vertexY, 3);
+		g2.setPaint (Color.BLACK);
+		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
+	}
+
+	protected void setVertices ()
+	{
+	}
+
+	public boolean isIn (int X, int Y)
+	{
+		return polygon.contains (X, Y);
+	}
+
+	public void move (int deltaX, int deltaY)
+	{
+		centerX += deltaX;
+		centerY += deltaY;
+		setVertices ();
 	}
 }

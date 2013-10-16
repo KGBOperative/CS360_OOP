@@ -6,47 +6,65 @@
 import java.text.NumberFormat;
 import java.awt.*;
 
-public class Shape
+public class Shape implements Comparable<Shape>
 {
-    protected int centerX;
-    protected int centerY;
+	public enum ShapeType {CIRCLE, EQUILATERAL, RECTANGLE, RIGHT, SCALENE, SQUARE};
+	protected int centerX;
+	protected int centerY;
 	protected int side;
+	protected Color color;
 
 	public Shape ()
 	{
 		side = 0;
+		color = Color.WHITE;
 	}
-	
-	public Shape (Shape S)
-	{
-		side = S.side;
-	}
-	
+
 	public double area ()
 	{
 		return 0;
 	}
-	
+
 	public double perimeter ()
 	{
 		return 0;
 	}
-	
-	public String sides ()
+
+	public void fromString (String str)
 	{
-		return "0";
+		String [] parts = str.split (" ");
+		try
+		{
+			centerX = Integer.parseInt(parts[0]);
+			centerY = Integer.parseInt(parts[1]);
+			side = Integer.parseInt(parts[2]);
+			color = new Color(Integer.parseInt(parts[3]));
+		}
+		catch (NumberFormatException e)
+		{
+			//System.out.println ("Numeric input error");
+		}
 	}
 
-    public void paintComponent(Graphics2D g2) {}
-	
-	public void write ()
+	public String toString ()
 	{
-   		NumberFormat nf = NumberFormat.getInstance();
-   		nf.setMinimumFractionDigits(2);
-   		nf.setMaximumFractionDigits(2);
-		System.out.print (sides () + " sided shape; ");
-		System.out.print (" with perimeter = " + nf.format(perimeter ()));
-		System.out.print (" and area = " + nf.format(area ()));
+		String string = new String ();
+		string += centerX + " ";
+		string += centerY + " ";
+		string += side + " ";
+		string += color.getRGB() + " ";
+		return string;
+	}
+
+	public int compareTo (Shape S)
+	{
+		double a1 = area (), a2 = S.area ();
+		double p1 = perimeter (), p2 = S.perimeter ();
+		if (a1 < a2) return -1;
+		if (a1 > a2) return 1;
+		if (p1 < p2) return -2;
+		if (p1 > p2) return 2;
+		return 0;
 	}
 
 	public String getName ()
@@ -54,10 +72,19 @@ public class Shape
 		return "Shape";
 	}
 
-	public static void main (String [] args)
+	public void paintComponent (Graphics2D g2)
 	{
-		Shape S = new Shape ();
-		S.write ();
-		System.out.println ();
+	}
+
+	public boolean isIn (int X, int Y)
+	{
+		return false;
+	}
+
+	public void move (int deltaX, int deltaY)
+	{
+		centerX += deltaX;
+		centerY += deltaY;
+		//System.out.println ("Moving shape " + deltaX + "," + deltaY + " units");
 	}
 }

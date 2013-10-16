@@ -1,48 +1,73 @@
 // File: Circle.java
-// Author: Amandeep Gill
-// Contents: The decleration and implementation of the Circle class
+// Author: Dr. Watts
+// Contents: This file contains the description and implementation
+// of a class called Circle. 
 
+import static java.lang.Math.*;
 import java.awt.*;
 
-public class Circle extends Shape {
-    private static double pi = 3.14159;
+public final class Circle extends Shape
+{
+	public Circle ()
+	{
+	}
 
-    Circle() {
-        side = 0;
-    }
+	public Circle (int S, int X, int Y, Color C)
+	{
+		side = S;
+		centerX = X;
+		centerY = Y;
+		color = C;
+	}
 
-    Circle(int s, int x, int y) {
-        side = s;
-        centerX = x;
-        centerY = y;
-    }
+	public Circle (Circle C)
+	{
+		side = C.side;
+		centerX = C.centerX;
+		centerY = C.centerY;
+		color = C.color;
+	}
 
-    Circle(int s) {
-        side = s;
-    }
+	public void setRadius (int R)
+	{
+		side = R;
+	}
 
-    public void paintComponent(Graphics2D g2) {
-        g2.drawOval(centerX-1, centerY-1, 2, 2);
-        g2.drawOval(centerX-side, centerY-side, 2*side, 2*side);
-    }
+	public int getRadius ()
+	{
+		return side;
+	}
 
-    @Override
-    public String sides() {
-        return "infinite";
-    }
+	public double area ()
+	{
+		return Math.PI * side * side;
+	}
 
-    @Override
-    public String getName() {
-        return "Circle";
-    }
+	public double perimeter ()
+	{
+		return 2 * Math.PI * side;
+	}
 
-    @Override
-    public double area() {
-        return side * side * pi;
-    }
+	public String getName ()
+	{
+		return "Circle";
+	}
 
-    @Override
-    public double perimeter() {
-        return side * pi * 2;
-    }
+	public void paintComponent (Graphics2D g2)
+	{
+		g2.setPaint (color);
+		g2.fillOval (centerX-side, centerY-side, 2*side, 2*side);
+		g2.drawOval (centerX-side, centerY-side, 2*side, 2*side);
+		g2.setPaint (Color.BLACK);
+		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
+	}
+
+	public boolean isIn (int X, int Y)
+	{
+		int deltaX = X - centerX;
+		int deltaY = Y - centerY;
+		double dist = sqrt (deltaX * deltaX + deltaY * deltaY);
+		//System.out.println ("dist = " + dist + " side = " + side);
+		return dist <= side;
+	}
 }

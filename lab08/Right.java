@@ -9,101 +9,120 @@ import java.awt.*;
 public final class Right extends Triangle
 {
 	private int side2;
-    private double side3;
-    private int centerX;
-    private int centerY;
 
 	public Right ()
 	{
 		side2 = 0;
-        side3 = 0;
-        centerX = 0;
-        centerY = 0;
 	}
-	
+
 	public Right (Right R)
 	{
 		side = R.side;
 		side2 = R.side2;
-        side3 = R.side3;
-        centerX = R.centerX;
-        centerY = R.centerY;
+		centerX = R.centerX;
+		centerY = R.centerY;
+		color = R.color;
+		for (int i = 0; i < 3; i++)
+		{
+			vertexX[i] = R.vertexX[i];
+			vertexY[i] = R.vertexY[i];
+		}
 	}
-	
-	public Right (int S1, int S2, int x, int y)
+
+	public Right (int S1, int S2, int X, int Y, Color C)
 	{
 		side = S1;
 		side2 = S2;
-        side3 = sqrt(side * side + side2 * side2);
-        centerX = x;
-        centerY = y;
+		centerX = X;
+		centerY = Y;
+		color = C;
+		setVertices ();
 	}
-	
+
+	public void setVertices ()
+	{
+		vertexX[0] = vertexY[0] = 0;
+		vertexX[1] = 0; vertexY[1] = -side2;
+		vertexX[2] = side; vertexY[2] = 0;
+		double hyp = sqrt (side * side + side2 * side2);
+		double perim = perimeter ();
+		int inX = 0, inY = 0;
+		if (perim > 0)
+		{
+			inX = (int) ((vertexX[0]* hyp + vertexX[1] * side + vertexX[2] * side2) / perim);
+			inY = (int) ((vertexY[0]* hyp + vertexY[1] * side + vertexY[2] * side2) / perim);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			vertexX[i] += (centerX - inX);
+			vertexY[i] += (centerY - inY);
+		}
+		polygon = new Polygon (vertexX, vertexY, 3);
+	}
+
 	public void setSide1 (int S1)
 	{
 		side = S1;
+		setVertices ();
 	}
-	
+
 	public int getSide1 ()
 	{
 		return side;
 	}
-	
+
 	public void setSide2 (int S2)
 	{
 		side2 = S2;
+		setVertices ();
 	}
-	
+
 	public int getSide2 ()
 	{
 		return side2;
 	}
-	
-    @Override
+
 	public double perimeter ()
 	{
-		return side + side2 + side3;
+		return side + side2 + sqrt (side * side + side2 * side2);
 	}
-	
-    @Override
+
 	public double area ()
 	{
 		return side * side2 / 2;
 	}
-	
-    @Override
+
 	public String getName ()
 	{
 		return "Right";
 	}
 
-    @Override
-    public void paintComponent(Graphics2D g2)  {
-        int x1[] = new int[3];
-        int y1[] = new int[3];
+	public void fromString (String str)
+	{
+		String [] parts = str.split (" ");
+		try
+		{
+			centerX = Integer.parseInt(parts[0]);
+			centerY = Integer.parseInt(parts[1]);
+			side = Integer.parseInt(parts[2]);
+			side2 = Integer.parseInt(parts[3]);
+			color = new Color(Integer.parseInt(parts[4]));
+			setVertices ();
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println ("File input error - invalid integer");;
+		}
+	}
 
-        double s = (side + side2 + side3) / 2;
-        double a = area(); //sqrt(s * (s - side) * (s - side2) * (s - side3));
-        double h = side2; //2 * a / side;
-        double l = side; //sqrt(side3 * side3 - h * h);
-
-        double x = (side* (side - l) + side2 * side) / (s * 2);
-        double y = (side * h) / (s * 2);
-
-        double xo = centerX - x;
-        double yo = centerY + y;
-
-        x1[0] = (int)(xo);
-        y1[0] = (int)(yo);
-        x1[1] = (int)(xo + side);
-        y1[1] = (int)(yo);
-        x1[2] = (int)(xo + side - l);
-        y1[2] = (int)(yo - h);
-
-        int x2[] = {centerX, centerX+1, centerX-1};
-        int y2[] = {centerY-1, centerY+1, centerY+1};
-
-        g2.drawPolygon(x1, y1, 3);
-        g2.drawPolygon(x2, y2, 3);
-    }
+	public String toString ()
+	{
+		String string = new String ();
+		string += centerX + " ";
+		string += centerY + " ";
+		string += side + " ";
+		string += side2 + " ";
+		string += color.getRGB() + " ";
+		return string;
+	}
 }	
