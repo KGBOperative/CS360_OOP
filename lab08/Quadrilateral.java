@@ -8,7 +8,6 @@ public class Quadrilateral extends Shape {
     public Quadrilateral() {
     }
 
-    @Override
     public String sides() {
         return "4";
     }

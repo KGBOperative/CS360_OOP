@@ -113,7 +113,8 @@ public class Scalene extends Triangle {
         int x2[] = {centerX, centerX+1, centerX-1};
         int y2[] = {centerY-1, centerY+1, centerY+1};
 
-        g2.drawPolygon(x1, y1, 3);
-        g2.drawPolygon(x2, y2, 3);
+		g2.setPaint (color);
+        g2.fillPolygon(x1, y1, 3);
+        g2.fillPolygon(x2, y2, 3);
     }
 }
