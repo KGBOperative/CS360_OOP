@@ -23,8 +23,10 @@ public class Triangle extends Shape
 	public void paintComponent (Graphics2D g2)
 	{
 		g2.setPaint (color);
-		g2.fillPolygon (vertexX, vertexY, 3);
-		g2.drawPolygon (vertexX, vertexY, 3);
+        g2.fillPolygon (polygon);
+        g2.drawPolygon (polygon);
+		// g2.fillPolygon (vertexX, vertexY, 3);
+		// g2.drawPolygon (vertexX, vertexY, 3);
 		g2.setPaint (Color.BLACK);
 		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
 	}

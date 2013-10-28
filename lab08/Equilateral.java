@@ -40,6 +40,29 @@ public final class Equilateral extends Triangle {
     }
 
     @Override
+    public void setVertices() {
+        double s = (side * 3) / 2;
+        double a = sqrt(s * pow(s-side, 3));
+        double h = 2 * a / side;
+        double l = sqrt(side * side - h * h);
+
+        double x = (side * side + side * l) / (s * 2);
+        double y = (side * h) / (s * 2);
+
+        double xo = centerX - x;
+        double yo = centerY + y;
+
+        vertexX[0] = (int)(xo);
+        vertexY[0] = (int)(yo);
+        vertexX[1] = (int)(xo + side);
+        vertexY[1] = (int)(yo);
+        vertexX[2] = (int)(xo + l);
+        vertexY[2] = (int)(yo - h);
+
+        polygon = new Polygon(vertexX, vertexY, 3);
+    }
+
+    @Override
     public String toString () {
         String string = new String ();
         string += centerX + " ";
@@ -49,6 +72,7 @@ public final class Equilateral extends Triangle {
         return string;
     }
 
+/*
     @Override
     public void paintComponent(Graphics2D g2)  {
         int x1[] = new int[3];
@@ -76,9 +100,10 @@ public final class Equilateral extends Triangle {
         int y2[] = {centerY-1, centerY+1, centerY+1};
 
 		g2.setPaint (color);
-        g2.fillPolygon(x1, y1, 3);
+        g2.fillPolygon(vertexX, vertexY, 3);
         g2.fillPolygon(x2, y2, 3);
     }
+*/
     
     public void setSide (int S) {
         side = S;

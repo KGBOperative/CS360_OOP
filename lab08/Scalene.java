@@ -5,7 +5,7 @@
 import static java.lang.Math.*;
 import java.awt.*;
 
-public class Scalene extends Triangle {
+public final class Scalene extends Triangle {
     private int side2;
     private int side3;
     private int centerX;
@@ -56,43 +56,27 @@ public class Scalene extends Triangle {
     }
 
     @Override
-	public void fromString (String str)
-	{
-		String [] parts = str.split (" ");
-		try
-		{
-			centerX = Integer.parseInt(parts[0]);
-			centerY = Integer.parseInt(parts[1]);
-			side = Integer.parseInt(parts[2]);
-			side2 = Integer.parseInt(parts[3]);
+    public void fromString (String str)
+    {
+        String [] parts = str.split (" ");
+        try
+        {
+            centerX = Integer.parseInt(parts[0]);
+            centerY = Integer.parseInt(parts[1]);
+            side = Integer.parseInt(parts[2]);
+            side2 = Integer.parseInt(parts[3]);
             side3 = Integer.parseInt(parts[4]);
-			color = new Color(Integer.parseInt(parts[4]));
-			setVertices ();
-		}
-		catch (NumberFormatException e)
-		{
-			System.out.println ("File input error - invalid integer");;
-		}
-	}
+            color = new Color(Integer.parseInt(parts[5]));
+            setVertices ();
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println ("File input error - invalid integer");;
+        }
+    }
 
     @Override
-	public String toString ()
-	{
-		String string = new String ();
-		string += centerX + " ";
-		string += centerY + " ";
-		string += side + " ";
-		string += side2 + " ";
-		string += side3 + " ";
-		string += color.getRGB() + " ";
-		return string;
-	}
-
-    @Override
-    public void paintComponent(Graphics2D g2)  {
-        int x1[] = new int[3];
-        int y1[] = new int[3];
-
+    public void setVertices() {
         double radius = 2 * area() / perimeter();
         double s = perimeter() / 2;
         double height = 2 * area() / side;
@@ -103,18 +87,26 @@ public class Scalene extends Triangle {
         int xo = centerX - (int)((side * length + side * side2) / perimeter());
         int yo = centerY + (int)radius;
 
-        x1[0] = (int)(xo);
-        y1[0] = (int)(yo);
-        x1[1] = (int)(xo + side);
-        y1[1] = (int)(yo);
-        x1[2] = (int)(xo + length);
-        y1[2] = (int)(yo - height);
+        vertexX[0] = (int)(xo);
+        vertexY[0] = (int)(yo);
+        vertexX[1] = (int)(xo + side);
+        vertexY[1] = (int)(yo);
+        vertexX[2] = (int)(xo + length);
+        vertexY[2] = (int)(yo - height);
 
-        int x2[] = {centerX, centerX+1, centerX-1};
-        int y2[] = {centerY-1, centerY+1, centerY+1};
+        polygon = new Polygon(vertexX, vertexY, 3);
+    }
 
-		g2.setPaint (color);
-        g2.fillPolygon(x1, y1, 3);
-        g2.fillPolygon(x2, y2, 3);
+    @Override
+    public String toString ()
+    {
+        String string = new String ();
+        string += centerX + " ";
+        string += centerY + " ";
+        string += side + " ";
+        string += side2 + " ";
+        string += side3 + " ";
+        string += color.getRGB() + " ";
+        return string;
     }
 }
