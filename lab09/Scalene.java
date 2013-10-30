@@ -5,6 +5,7 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
 
 public final class Scalene extends Triangle
 {
@@ -45,23 +46,43 @@ public final class Scalene extends Triangle
 
 	public void setVertices ()
 	{
-		double cosAngle = (side * side + side2 * side2 - side3 * side3) / (2.0 * side * side2);
-		double angle = acos (cosAngle);
-		int height = (int) (sin(angle) * side2);
-		int offX = (int) (cos(angle) * side2);
-		//System.out.println (cosAngle + "; " + angle + "; " + height + "; " + offX);
-		vertexX[0] = vertexY[0] = 0;
-		vertexX[1] = offX; vertexY[1] = -height;
-		vertexX[2] = side; vertexY[2] = 0;
-		int inX = (vertexX[0]* side3 + vertexX[1] * side + vertexX[2] * side2) / (int) perimeter();
-		int inY = (vertexY[0]* side3 + vertexY[1] * side + vertexY[2] * side2) / (int) perimeter();
-		for (int i = 0; i < 3; i++)
-		{
-			vertexX[i] += (centerX - inX);
-			vertexY[i] += (centerY - inY);
-		}
-		polygon = new Polygon (vertexX, vertexY, 3);
+        if (side * side2 * side3 != 0) {
+            double cosAngle = (side * side + side2 * side2 - side3 * side3) / (2.0 * side * side2);
+            double angle = acos (cosAngle);
+            int height = (int) (sin(angle) * side2);
+            int offX = (int) (cos(angle) * side2);
+            //System.out.println (cosAngle + "; " + angle + "; " + height + "; " + offX);
+            vertexX[0] = vertexY[0] = 0;
+            vertexX[1] = offX; vertexY[1] = -height;
+            vertexX[2] = side; vertexY[2] = 0;
+            int inX = (vertexX[0]* side3 + vertexX[1] * side + vertexX[2] * side2) / (int) perimeter();
+            int inY = (vertexY[0]* side3 + vertexY[1] * side + vertexY[2] * side2) / (int) perimeter();
+            for (int i = 0; i < 3; i++)
+            {
+                vertexX[i] += (centerX - inX);
+                vertexY[i] += (centerY - inY);
+            }
+        }
+
+        else {
+            for (int i = 0; i < 3; i++) {
+                vertexX[i] = centerX;
+                vertexY[i] = centerY;
+            }
+        }
+
+        polygon = new Polygon (vertexX, vertexY, 3);
 	}
+
+    public void modifyShape (JFrame frame, int x, int y) {
+        ScaleneDialog scalenedialog = new ScaleneDialog (frame, true, x, y, side); 
+        side = scalenedialog.getSide();
+        side2 = scalenedialog.getSide2();
+        side3 = scalenedialog.getSide3();
+        color = scalenedialog.getColor ();
+
+        setVertices();
+    }
 
 	public void setSide1 (int S1)
 	{

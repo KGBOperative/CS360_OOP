@@ -5,18 +5,16 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
 
-public final class Right extends Triangle
-{
+public final class Right extends Triangle {
 	private int side2;
 
-	public Right ()
-	{
+	public Right () {
 		side2 = 0;
 	}
 
-	public Right (Right R)
-	{
+	public Right (Right R) {
 		side = R.side;
 		side2 = R.side2;
 		centerX = R.centerX;
@@ -29,8 +27,7 @@ public final class Right extends Triangle
 		}
 	}
 
-	public Right (int S1, int S2, int X, int Y, Color C)
-	{
+	public Right (int S1, int S2, int X, int Y, Color C) {
 		side = S1;
 		side2 = S2;
 		centerX = X;
@@ -39,69 +36,66 @@ public final class Right extends Triangle
 		setVertices ();
 	}
 
-	public void setVertices ()
-	{
+	public void setVertices () {
 		vertexX[0] = vertexY[0] = 0;
 		vertexX[1] = 0; vertexY[1] = -side2;
 		vertexX[2] = side; vertexY[2] = 0;
 		double hyp = sqrt (side * side + side2 * side2);
 		double perim = perimeter ();
 		int inX = 0, inY = 0;
-		if (perim > 0)
-		{
+		if (perim > 0) {
 			inX = (int) ((vertexX[0]* hyp + vertexX[1] * side + vertexX[2] * side2) / perim);
 			inY = (int) ((vertexY[0]* hyp + vertexY[1] * side + vertexY[2] * side2) / perim);
 		}
-		for (int i = 0; i < 3; i++)
-		{
+		for (int i = 0; i < 3; i++) {
 			vertexX[i] += (centerX - inX);
 			vertexY[i] += (centerY - inY);
 		}
 		polygon = new Polygon (vertexX, vertexY, 3);
 	}
 
-	public void setSide1 (int S1)
-	{
+    public void modifyShape (JFrame frame, int x, int y) {
+        RightDialog rightdialog = new RightDialog (frame, true, x, y, side); 
+        side = rightdialog.getSide();
+        side2 = rightdialog.getSide2();
+        color = rightdialog.getColor ();
+
+        setVertices();
+    }
+
+	public void setSide1 (int S1) {
 		side = S1;
 		setVertices ();
 	}
 
-	public int getSide1 ()
-	{
+	public int getSide1 () {
 		return side;
 	}
 
-	public void setSide2 (int S2)
-	{
+	public void setSide2 (int S2) {
 		side2 = S2;
 		setVertices ();
 	}
 
-	public int getSide2 ()
-	{
+	public int getSide2 () {
 		return side2;
 	}
 
-	public double perimeter ()
-	{
+	public double perimeter () {
 		return side + side2 + sqrt (side * side + side2 * side2);
 	}
 
-	public double area ()
-	{
+	public double area () {
 		return side * side2 / 2;
 	}
 
-	public String getName ()
-	{
+	public String getName () {
 		return "Right";
 	}
 
-	public void fromString (String str)
-	{
+	public void fromString (String str) {
 		String [] parts = str.split (" ");
-		try
-		{
+		try {
 			centerX = Integer.parseInt(parts[0]);
 			centerY = Integer.parseInt(parts[1]);
 			side = Integer.parseInt(parts[2]);
@@ -110,14 +104,12 @@ public final class Right extends Triangle
 			angle = Double.parseDouble (parts[5]);
 			setVertices ();
 		}
-		catch (NumberFormatException e)
-		{
+		catch (NumberFormatException e) {
 			System.out.println ("File input error - invalid integer");;
 		}
 	}
 
-	public String toString ()
-	{
+	public String toString () {
 		String string = new String ();
 		string += centerX + " ";
 		string += centerY + " ";
