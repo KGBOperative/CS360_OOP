@@ -4,23 +4,13 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public final class Scalene extends Triangle {
     private int side2;
     private int side3;
-    private int centerX;
-    private int centerY;
 
     public Scalene() {
-    }
-
-    public Scalene(int s1, int s2, int s3, int x, int y) {
-        side = s1;
-        side2 = s2;
-        side3 = s3;
-
-        centerX = x;
-        centerY = y;
     }
 
     @Override
@@ -56,11 +46,9 @@ public final class Scalene extends Triangle {
     }
 
     @Override
-    public void fromString (String str)
-    {
+    public void fromString (String str) {
         String [] parts = str.split (" ");
-        try
-        {
+        try {
             centerX = Integer.parseInt(parts[0]);
             centerY = Integer.parseInt(parts[1]);
             side = Integer.parseInt(parts[2]);
@@ -69,8 +57,7 @@ public final class Scalene extends Triangle {
             color = new Color(Integer.parseInt(parts[5]));
             setVertices ();
         }
-        catch (NumberFormatException e)
-        {
+        catch (NumberFormatException e) {
             System.out.println ("File input error - invalid integer");;
         }
     }
@@ -98,8 +85,7 @@ public final class Scalene extends Triangle {
     }
 
     @Override
-    public String toString ()
-    {
+    public String toString () {
         String string = new String ();
         string += centerX + " ";
         string += centerY + " ";
