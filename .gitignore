@@ -1,5 +1,6 @@
 # ignore projects
 proj*
+fight
 
 # ignore swap files
 .*.swp

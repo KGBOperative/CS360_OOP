@@ -32,9 +32,11 @@ public class ScaleneDialog extends JDialog implements ActionListener {
     public int getSide3() { return side3; }
     public boolean getAnswer() { return answer; }
 
-    public ScaleneDialog(JFrame frame, boolean modal, int x, int y, int R) {
+    public ScaleneDialog(JFrame frame, boolean modal, int x, int y, int R, int R2, int R3) {
         super(frame, modal);
         oldSide = R;
+        oldSide2 = R2;
+        oldSide3 = R3;
         myPanel = new JPanel();
         getContentPane().add(myPanel);
         myPanel.setLayout (new GridLayout(5,1));
@@ -93,7 +95,7 @@ public class ScaleneDialog extends JDialog implements ActionListener {
 
     private void addTextAndButtons () {
         myPanel.add(new JLabel("Enter the side lengths:"));
-        sideText = new JTextField(((Integer) oldSide).toString() + " " + ((Integer) oldSide2).toString() + " " + ((Integer) oldSide2).toString(), 20);
+        sideText = new JTextField(((Integer) oldSide).toString() + " " + ((Integer) oldSide2).toString() + " " + ((Integer) oldSide3).toString(), 20);
         sideText.addActionListener(this);
         myPanel.add (sideText);
         buttonPanel = new JPanel();

@@ -5,97 +5,105 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
 
 public final class Square extends Quadrilateral
 {
-	public Square ()
-	{
-	}
+    public Square ()
+    {
+    }
 
-	public Square (int S, int X, int Y, Color C)
-	{
-		side = S;
-		centerX = X;
-		centerY = Y;
-		color = C;
-	}
+    public Square (int S, int X, int Y, Color C)
+    {
+        side = S;
+        centerX = X;
+        centerY = Y;
+        color = C;
 
-	public Square (Square C)
-	{
-		side = C.side;
-		centerX = C.centerX;
-		centerY = C.centerY;
-		color = C.color;
-	}
+        setVertices();
+    }
 
-	public void setSide (int S)
-	{
-		side = S;
-	}
+    public Square (Square C)
+    {
+        side = C.side;
+        centerX = C.centerX;
+        centerY = C.centerY;
+        color = C.color;
+    }
 
-	public int getSide ()
-	{
-		return side;
-	}
+    public void setSide (int S)
+    {
+        side = S;
+    }
 
-	public double area ()
-	{
-		return side * side;
-	}
+    public int getSide ()
+    {
+        return side;
+    }
 
-	public double perimeter ()
-	{
-		return 4 * side;
-	}
+    public double area ()
+    {
+        return side * side;
+    }
 
-	public String getName ()
-	{
-		return "Square";
-	}
+    public double perimeter ()
+    {
+        return 4 * side;
+    }
 
-	public void fromString (String str)
-	{
-		String [] parts = str.split (" ");
-		try
-		{
-			centerX = Integer.parseInt(parts[0]);
-			centerY = Integer.parseInt(parts[1]);
-			side = Integer.parseInt(parts[2]);
-			color = new Color(Integer.parseInt(parts[3]));
-			angle = Double.parseDouble (parts[4]);
-		}
-		catch (NumberFormatException e)
-		{
-			System.out.println ("Numeric input error");
-		}
-	}
+    public String getName ()
+    {
+        return "Square";
+    }
 
-	public String toString ()
-	{
-		String string = new String ();
-		string += centerX + " ";
-		string += centerY + " ";
-		string += side + " ";
-		string += color.getRGB() + " ";
-		string += angle + " ";
-		return string;
-	}
+    public void setVertices() {
+        vertexX[0] = centerX-side/2;
+        vertexY[0] = centerY-side/2;
+        vertexX[1] = centerX+side/2;
+        vertexY[1] = centerY-side/2;
+        vertexX[2] = centerX+side/2;
+        vertexY[2] = centerY+side/2;
+        vertexX[3] = centerX-side/2;
+        vertexY[3] = centerY+side/2;
 
-	public void paintComponent (Graphics2D g2)
-	{
-		g2.setPaint (color);
-		g2.fillRect (centerX-side/2, centerY-side/2, side, side);
-		g2.drawRect (centerX-side/2, centerY-side/2, side, side);
-		g2.setPaint (Color.BLACK);
-		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
-	}
+        polygon = new Polygon(vertexX, vertexY, 4);
+    }
 
-	public boolean isIn (int X, int Y)
-	{
-		int deltaX = Math.abs (X - centerX);
-		int deltaY = Math.abs (Y - centerY);
-		if (deltaX <= side/2 && deltaY <= side/2)
-			return true;
-		return false;
-	}
+    public void modifyShape (JFrame frame, int x, int y) {
+        SquareDialog squaredialog = new SquareDialog (frame, true, x, y, side); 
+        if (squaredialog.getAnswer()) {
+            side = squaredialog.getSide();
+            color = squaredialog.getColor ();
+
+            setVertices();
+        }
+    }
+
+    public void fromString (String str)
+    {
+        String [] parts = str.split (" ");
+        try
+        {
+            centerX = Integer.parseInt(parts[0]);
+            centerY = Integer.parseInt(parts[1]);
+            side = Integer.parseInt(parts[2]);
+            color = new Color(Integer.parseInt(parts[3]));
+            angle = Double.parseDouble (parts[4]);
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println ("Numeric input error");
+        }
+    }
+
+    public String toString ()
+    {
+        String string = new String ();
+        string += centerX + " ";
+        string += centerY + " ";
+        string += side + " ";
+        string += color.getRGB() + " ";
+        string += angle + " ";
+        return string;
+    }
 }

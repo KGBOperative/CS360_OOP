@@ -57,10 +57,12 @@ public final class Equilateral extends Triangle {
 
     public void modifyShape (JFrame frame, int x, int y) {
         EquilateralDialog equilateraldialog = new EquilateralDialog (frame, true, x, y, side); 
-        side = equilateraldialog.getSide();
-        color = equilateraldialog.getColor ();
+        if (equilateraldialog.getAnswer()) {
+            side = equilateraldialog.getSide();
+            color = equilateraldialog.getColor ();
 
-        setVertices();
+            setVertices();
+        }
     }
 
     public void fromString (String str) {

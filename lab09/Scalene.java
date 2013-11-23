@@ -75,13 +75,15 @@ public final class Scalene extends Triangle
 	}
 
     public void modifyShape (JFrame frame, int x, int y) {
-        ScaleneDialog scalenedialog = new ScaleneDialog (frame, true, x, y, side); 
-        side = scalenedialog.getSide();
-        side2 = scalenedialog.getSide2();
-        side3 = scalenedialog.getSide3();
-        color = scalenedialog.getColor ();
+        ScaleneDialog scalenedialog = new ScaleneDialog (frame, true, x, y, side, side2, side3); 
+        if (scalenedialog.getAnswer()) {
+            side = scalenedialog.getSide();
+            side2 = scalenedialog.getSide2();
+            side3 = scalenedialog.getSide3();
+            color = scalenedialog.getColor ();
 
-        setVertices();
+            setVertices();
+        }
     }
 
 	public void setSide1 (int S1)

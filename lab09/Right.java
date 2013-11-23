@@ -55,12 +55,14 @@ public final class Right extends Triangle {
 	}
 
     public void modifyShape (JFrame frame, int x, int y) {
-        RightDialog rightdialog = new RightDialog (frame, true, x, y, side); 
-        side = rightdialog.getSide();
-        side2 = rightdialog.getSide2();
-        color = rightdialog.getColor ();
+        RightDialog rightdialog = new RightDialog (frame, true, x, y, side, side2); 
+        if (rightdialog.getAnswer()) {
+            side = rightdialog.getSide();
+            side2 = rightdialog.getSide2();
+            color = rightdialog.getColor ();
 
-        setVertices();
+            setVertices();
+        }
     }
 
 	public void setSide1 (int S1) {

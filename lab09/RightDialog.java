@@ -29,9 +29,10 @@ public class RightDialog extends JDialog implements ActionListener {
     public int getSide2() { return side2; }
     public boolean getAnswer() { return answer; }
 
-    public RightDialog(JFrame frame, boolean modal, int x, int y, int R) {
+    public RightDialog(JFrame frame, boolean modal, int x, int y, int R, int R2) {
         super(frame, modal);
         oldSide = R;
+        oldSide2 = R2;
         myPanel = new JPanel();
         getContentPane().add(myPanel);
         myPanel.setLayout (new GridLayout(5,1));
@@ -136,7 +137,7 @@ public class RightDialog extends JDialog implements ActionListener {
             }
             catch (NumberFormatException ex) {
                 side = oldSide;
-                side2 = oldSide;
+                side2 = oldSide2;
             }
         }
         else if(cancelButton == e.getSource()) {
